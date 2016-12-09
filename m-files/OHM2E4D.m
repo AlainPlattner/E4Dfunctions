@@ -1,5 +1,5 @@
-function electrodes=OHM3d2E4D(inputname,outputname,esterror)
-% electrodes=OHM3d2E4D(inputname,outputname,esterror)
+function electrodes=OHM2E4D(inputname,outputname,esterror)
+% electrodes=OHM2E4D(inputname,outputname,esterror)
 %
 % Transforms a file in Thomas Gunther's .ohm format 
 % (see www.resistivity.net) into a .srv file that can be read by E4D

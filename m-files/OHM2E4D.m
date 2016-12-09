@@ -1,5 +1,5 @@
-function OHM3d2E4D(inputname,outputname,esterror)
-% OHM3d2E4D(inputname,outputname,esterror)
+function electrodes=OHM3d2E4D(inputname,outputname,esterror)
+% electrodes=OHM3d2E4D(inputname,outputname,esterror)
 %
 % Transforms a file in Thomas Gunther's .ohm format 
 % (see www.resistivity.net) into a .srv file that can be read by E4D
@@ -10,6 +10,9 @@ function OHM3d2E4D(inputname,outputname,esterror)
 % outputname    Filename for the .srv file (no extension)
 % esterror      [needed if not in ohm file] estimated error in 
 %               percent (e.g. 1 = 1%) 
+%
+% OUTPUT:
+% electrodes    x,y,z coordinates of the electrodes
 %
 % Last modified by plattner-at-alumni.ethz.ch, 12/09/2016
 
@@ -39,6 +42,9 @@ for counter=1:nelec
     strin=fgets(fin);
     red=sscanf(strin,'%f %f %f');
     fprintf(fout,'%d %f %f %f %d\n',counter+elecnumshift,red(1),red(2),red(3),eleflag);
+    electrodes(counter,1)=red(1);
+    electrodes(counter,2)=red(2);
+    electrodes(counter,3)=red(3);
 end
 
 % Skip a line in the .srv file

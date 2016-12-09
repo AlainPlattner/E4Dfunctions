@@ -1,5 +1,5 @@
-function OHM2E4D(inputname,outputname,esterror,xpos,ypos,zpos,elecnumshift,measnumshift)
-% OHM2E4D(inputname,outputname,esterror,xpos,ypos,zpos,elecnumshift,measnumshift)
+function OHM3d2E4D(inputname,outputname,esterror)
+% OHM3d2E4D(inputname,outputname,esterror)
 %
 % Transforms a file in Thomas Gunther's .ohm format 
 % (see www.resistivity.net) into a .srv file that can be read by E4D
@@ -8,17 +8,10 @@ function OHM2E4D(inputname,outputname,esterror,xpos,ypos,zpos,elecnumshift,measn
 %
 % inputname     Filename (including extension) of the .ohm or .dat file
 % outputname    Filename for the .srv file (no extension)
-% esterror      estimated error in percent (e.g. 1 = 1%)
-% xpos          x-coordinates of the electrodes
-% ypos          y-coordinates of the electrodes
-% zpos          z-coordinates of the electrodes
-% elecnumshift  set counter for first electrode if you want to combine 
-%               these measurements with other measurements
-% measnumshift  set counter for first measurement if you want to combine 
-%               these measurements with other measurements
-% 
+% esterror      [needed if not in ohm file] estimated error in 
+%               percent (e.g. 1 = 1%) 
 %
-% Last modified by plattner-at-alumni.ethz.ch, 1/10/2015
+% Last modified by plattner-at-alumni.ethz.ch, 12/09/2016
 
 
 outputname = [outputname '.srv'];
@@ -44,11 +37,8 @@ strin=fgetl(fin);
 for counter=1:nelec
     eleflag=1;
     strin=fgets(fin);
-    red=sscanf(strin,'%f %f');
-    fprintf(fout,'%d %f %f %f %d\n',counter+elecnumshift,xpos(counter),ypos(counter),zpos(counter),eleflag);
-    %fprintf(fout,'%d %f %f %f %d\n',counter,red(1),yvals(counter),red(2),eleflag);
-    % Also store the electrodes here for calculations further down
-    % electrodes(counter,:)=[xpos(counter),ypos(counter),zpos(counter)];
+    red=sscanf(strin,'%f %f %f');
+    fprintf(fout,'%d %f %f %f %d\n',counter+elecnumshift,red(1),red(2),red(3),eleflag);
 end
 
 % Skip a line in the .srv file
@@ -83,21 +73,5 @@ end
 
 fclose(fout);
 fclose(fin);
-
-
-
-% I think appres=0 is the right setting. Meaning that we don't have to
-% multiply with a factor to go from .ohm to .srv
-% appres=0;
-% Removed because it was wrong:
-% Calculate the geometry factor
-% if appres
-%         AM=norm(electrodes(red(1))-electrodes(red(3)));
-%         BM=norm(electrodes(red(2))-electrodes(red(3)));
-%         AN=norm(electrodes(red(1))-electrodes(red(4)));
-%         BN=norm(electrodes(red(2))-electrodes(red(4)));
-%         VdI=red(5)/(2*pi)*(1/AM - 1/BM - 1/AN + 1/BN);
-%     else
-% end
 
 

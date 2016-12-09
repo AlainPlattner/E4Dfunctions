@@ -1,5 +1,5 @@
 function electrodes=OHM2E4D(inputname,outputname,esterror)
-% electrodes=OHM2E4D(inputname,outputname,esterror)
+% electrodes=OHM3E4D(inputname,outputname,esterror)
 %
 % Transforms a file in Thomas Gunther's .ohm format 
 % (see www.resistivity.net) into a .srv file that can be read by E4D
@@ -41,7 +41,7 @@ for counter=1:nelec
     eleflag=1;
     strin=fgets(fin);
     red=sscanf(strin,'%f %f %f');
-    fprintf(fout,'%d %f %f %f %d\n',counter+elecnumshift,red(1),red(2),red(3),eleflag);
+    fprintf(fout,'%d %f %f %f %d\n',counter,red(1),red(2),red(3),eleflag);
     electrodes(counter,1)=red(1);
     electrodes(counter,2)=red(2);
     electrodes(counter,3)=red(3);
@@ -73,7 +73,7 @@ for counter=1:nmeas
     %fprintf(fout,'%d %d %d %d %d %g %g\n',...
     %    counter,red(1),red(2),red(3),red(4),VdI,stdd);
     fprintf(fout,'%d %d %d %d %d %f %f\n',...
-        counter+measnumshift,red(1)+elecnumshift,red(2)+elecnumshift,red(3)+elecnumshift,red(4)+elecnumshift,VdI,stdd);
+        counter,red(1),red(2),red(3),red(4),VdI,stdd);
 end
     
 

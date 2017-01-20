@@ -1,5 +1,5 @@
-function OHM2E4D(inputname,outputname,esterror,xpos,ypos,zpos,elecnumshift,measnumshift)
-% OHM2E4D(inputname,outputname,esterror,xpos,ypos,zpos,elecnumshift,measnumshift)
+function twodOHM2E4D(inputname,outputname,esterror,xpos,ypos,zpos,elecnumshift,measnumshift)
+% twodOHM2E4D(inputname,outputname,esterror,xpos,ypos,zpos,elecnumshift,measnumshift)
 %
 % Transforms a file in Thomas Gunther's .ohm format 
 % (see www.resistivity.net) into a .srv file that can be read by E4D
